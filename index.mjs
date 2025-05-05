@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 
 app.get('/api/ip', async (req, res) => {
-    const ip = req.query.ip || '';
+    const ip = req.query.ip || req.headers['x-forwarded-for']?.split(',')[0];
     const apiKey = process.env.IPIFY_API_KEY;
 
     if (!apiKey) {
